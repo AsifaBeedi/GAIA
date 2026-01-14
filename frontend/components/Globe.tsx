@@ -115,16 +115,26 @@ export default function Globe({ onEventClick, refreshTrigger }: Props) {
             <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
 
             <Sphere ref={earthRef} args={[2, 64, 64]}>
-                <meshStandardMaterial
-                    color="#1e293b"
-                    emissive="#000020"
-                    emissiveIntensity={0.5}
-                    roughness={0.7}
-                    metalness={0.5}
-                    wireframe={false}
+                {/* Solid Base Layer */}
+                <meshPhongMaterial
+                    color="#050a14"
+                    emissive="#000000"
+                    specular="#111111"
+                    shininess={10}
                     transparent={false}
                     opacity={1}
                 />
+
+                {/* Wireframe Overlay for Sci-Fi Look */}
+                <mesh scale={[1.001, 1.001, 1.001]}>
+                    <sphereGeometry args={[2, 24, 24]} />
+                    <meshBasicMaterial
+                        color="#1e293b"
+                        wireframe
+                        transparent
+                        opacity={0.3}
+                    />
+                </mesh>
 
                 {events.map((ev) => (
                     <PulsingMarker
