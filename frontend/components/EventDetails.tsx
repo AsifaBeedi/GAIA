@@ -1,7 +1,7 @@
 "use client";
 
 interface GlobalEvent {
-    id: number;
+    id: string;
     topic: string;
     sentiment: string;
     lang: string;

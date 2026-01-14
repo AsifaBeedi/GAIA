@@ -37,20 +37,27 @@ def get_events():
     """
     Returns a batch of simulated news events, analyzed in real-time by the NLP engine.
     """
+    import uuid
+    import time
+    
     raw_events = news_stream.get_batch(size=5)
     analyzed_events = []
     
-    for i, event in enumerate(raw_events):
+    for event in raw_events:
         analysis = nlp_engine.analyze(event["text"])
+        # Generate a unique ID for this instance of the event
+        event_id = str(uuid.uuid4())
+        
         analyzed_events.append({
-            "id": i,
+            "id": event_id,
             "topic": "Global Sentiment",
             "lat": event["lat"],
             "lng": event["lng"],
             "sentiment": analysis["sentiment"],
             "text": event["text"],
             "lang": event["lang"],
-            "score": analysis["score"]
+            "score": analysis["score"],
+            "timestamp": time.time()
         })
         
     return analyzed_events
