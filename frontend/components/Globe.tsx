@@ -117,19 +117,14 @@ export default function Globe({ onEventClick, refreshTrigger }: Props) {
             <Sphere ref={earthRef} args={[2, 64, 64]}>
                 <meshStandardMaterial
                     color="#1e293b"
-                    emissive="#000"
+                    emissive="#000020"
+                    emissiveIntensity={0.5}
                     roughness={0.7}
                     metalness={0.5}
-                    wireframe={true}
-                    transparent
-                    opacity={0.9}
+                    wireframe={false}
+                    transparent={false}
+                    opacity={1}
                 />
-
-                {/* Atmosphere Glow (Fake) */}
-                <mesh scale={[1.01, 1.01, 1.01]}>
-                    <sphereGeometry args={[2, 64, 64]} />
-                    <meshBasicMaterial color="#0f172a" transparent opacity={0.2} side={THREE.BackSide} />
-                </mesh>
 
                 {events.map((ev) => (
                     <PulsingMarker
