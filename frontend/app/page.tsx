@@ -6,14 +6,19 @@ import { OrbitControls } from "@react-three/drei";
 import Globe from "../components/Globe";
 import MissionControl from "../components/MissionControl";
 import EventDetails from "../components/EventDetails";
+import BroadcastTerminal from "../components/BroadcastTerminal";
 
 export default function Home() {
   const [selectedEvent, setSelectedEvent] = useState<any>(null);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
-  const handleScenarioChange = (scenario: string) => {
+  const handleRefresh = () => {
     // Force the Globe to refetch data
     setRefreshTrigger(prev => prev + 1);
+  };
+
+  const handleScenarioChange = (scenario: string) => {
+    handleRefresh();
     setSelectedEvent(null);
   };
 
@@ -31,6 +36,7 @@ export default function Home() {
 
       {/* UI Managers */}
       <MissionControl onScenarioChange={handleScenarioChange} />
+      <BroadcastTerminal onBroadcast={handleRefresh} />
       <EventDetails event={selectedEvent} onClose={() => setSelectedEvent(null)} />
 
       {/* 3D Scene */}
